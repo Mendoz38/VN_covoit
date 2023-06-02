@@ -1,0 +1,26 @@
+const bcrypt = require('bcryptjs');
+const saltRounds = 10;
+const jwt = require('jsonwebtoken');
+if(!process.env.HOST_DB) {
+    var config = require('../config')
+}else {
+    var config = require('../config-exemple')
+}
+let secret = process.env.TOKEN_SECRET || config.token.secret;
+const withAuth = require('../withAuth')
+
+
+module.exports = (app, db)=>{
+    const userModel = require('../models/UserModel')(db);
+
+    app.get('/api/v1/checkToken', withAuth, async (req, res, next)=>{
+        console.log("Réponse : ",req.body)
+        let user = await userModel.getUserByMail(req.email); 
+        // console.log("user : ",user);
+        if(user.code){
+            res.json({status:500, err: user})
+        }
+        res.json({status: 200, msg: "token valide ", user: user})
+    })
+
+}
