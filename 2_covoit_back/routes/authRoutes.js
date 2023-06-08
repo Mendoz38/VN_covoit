@@ -14,7 +14,6 @@ module.exports = (app, db)=>{
     const userModel = require('../models/UserModel')(db);
 
     app.get('/api/v1/checkToken', withAuth, async (req, res, next)=>{
-        console.log("Réponse : ",req.body)
         let user = await userModel.getUserByMail(req.email); 
         // console.log("user : ",user);
         if(user.code){

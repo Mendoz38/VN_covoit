@@ -6,6 +6,6 @@ module.exports = {
         database : "vinsnaturels",
     },
 	token: {
-		secret: "pitichat"
+		secret: "VN_covoit"
 	}
 }

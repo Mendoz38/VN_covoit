@@ -122,9 +122,6 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
             <option value="+60">60 ans et +</option>
           </select>
         </div>
-
-
-
       </div>
 
 

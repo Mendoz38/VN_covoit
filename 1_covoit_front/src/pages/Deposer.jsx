@@ -15,15 +15,17 @@ import Envoyer from "./form/Envoyer";
 const Deposer = (props) => {
 
   const user = useSelector(selectUser);
+  const url_id_salon = window.localStorage.getItem('url_id_salon')
+  const url_salon = window.localStorage.getItem('url_salon')
 
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     id_membre: user.infos.id,
-    id_salon: "",
+    id_salon: url_id_salon,
     choix: "",
     places: "",
     depart: "",
-    arrivee: "",
+    arrivee: url_salon,
     date_aller: "",
     heure: "",
     nom: "",

@@ -4,8 +4,6 @@ import {Navigate, Link} from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faCoffee, faHandHoldingHeart, faPhone, faVenusMars } from '@fortawesome/free-solid-svg-icons'
-import Envoyer from './Envoyer';
-
 
 const Infos = ({ page, setPage, formData, setFormData }) => {
 

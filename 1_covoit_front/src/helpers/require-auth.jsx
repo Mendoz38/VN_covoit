@@ -10,13 +10,13 @@ import { selectUser, setUser } from "../slices/userSlice";
 //HOC de controle des data et de la sécurité
 const RequireAuth = (props) => {
   const dispatch = useDispatch();
+  const Child = props.child;
 
   //on prépare la fonctionnalité pour dispatcher notre action dans le store
   const user = useSelector(selectUser);
   //je récup le params de la route demandée
   const params = useParams();
 
-  const Child = props.child;
 
   // gestion des state
   const [redirect, setRedirect] = useState(false);

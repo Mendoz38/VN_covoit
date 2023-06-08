@@ -13,14 +13,17 @@ class UserModel {
     
     //ajout d'un utilisateur  A FAIRE
 	static async saveOneUser(req){
-		console.log("result : ", req.body.prenom)
+		console.log("saveOneUser : ", req.body.prenom)
+		console.log("req.body.password : ", req.body.password)
+		console.log("saltRounds : ", saltRounds)
 	    //on hash le password
 	    let hash = await bcrypt.hash(req.body.password, saltRounds);
+		console.log("hash : ", hash)
 	    //on génère un id personalisé
 	    let key_id = randomId(len, pattern);
-	    console.log(key_id)
+	    console.log("key_id : ",key_id)
 	    
-	    let user = await db.query('SELECT * FROM membres_users WHERE email = ?', [req.body.email]);
+	    let user = await db.query('SELECT * FROM membres_users WHERE mail = ?', [req.body.mail]);
 	    
 	    if(user.length > 0) {
 			console.log("email déjà utilisé")
@@ -28,12 +31,10 @@ class UserModel {
 		}
 		console.log("req.body.nom : ", req.body.nom)
 		console.log("req.body.prenom : ", req.body.prenom)
-		console.log("req.body.email : ", req.body.email)
-		console.log("req.body.profession : ", req.body.profession)
+		console.log("req.body.mail : ", req.body.mail)
 		console.log("key_id : ", key_id)
-		console.log("req.body.entreprise : ", req.body.entreprise)
 	    //on sauvegarde l'utilisateur
-	    return db.query('INSERT INTO membres_users (nom, prenom, email, password, membre_grade, profession, entreprise, date_inscription, validate, key_id) VALUES(?, ?, ?, ?, "3", ?, ?, NOW(), "no", ?)', [req.body.nom, req.body.prenom, req.body.email, hash, req.body.profession, req.body.entreprise, key_id ])
+	    return db.query('INSERT INTO membres_users (nom, prenom, mail, pwd, membre_grade, date_inscription, validate, key_id) VALUES(?, ?, ?, ?, "3", NOW(), "no", ?)', [req.body.nom, req.body.prenom, req.body.mail, hash, key_id ])
 		.then((result)=>{
 			//on retourne l'objet de reponse reussit en lui rajoutant le key_id
 			result.key_id = key_id
@@ -69,7 +70,7 @@ class UserModel {
 	
 	// Récupération d'un user par mail
 	static async getUserByMail(email){
-		console.log("req.body.mail : ", email)
+		//console.log("req.body.mail : ", email)
 	    let user = await db.query('SELECT * FROM membres_users WHERE mail = ?', [email]);
 
 		return user;

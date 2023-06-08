@@ -23,6 +23,20 @@ module.exports = (app, db)=>{
 		}
     })
 
+	// Ajout d'une réponse
+    app.post('/zzz/reponse/add',  async (req,  res, next)=>{
+    	let result = await CovoitModel.reponseCovoit(req);
+		console.log("dans Route reponseCovoit on recoit la réponse")
+
+    	if(result.code) {
+			console.log("dans if", result)
+    		res.json({status: 500, err: result});
+    	}
+		else {
+    		res.json({status: 200, msg: 'Covoit enregistré'});
+		}
+    })
+
 	// Tous les covoits
     app.get('/zzz/covoit/all', async (req,  res, next)=>{
      	let covoits = await CovoitModel.getAllCovoits();
@@ -40,12 +54,12 @@ module.exports = (app, db)=>{
     	let id = req.params.id;
 		console.log("dans Route covoit/one/:id", req.params.id)
     	let covoitDetail = await CovoitModel.getOneCovoit(id);
-		//console.log("covoitDetail : ", covoitDetail)
+		console.log("covoitDetail : ", covoitDetail)
     	if(covoitDetail.code) {
     		res.json({status: 500, err: covoitDetail});
     	}
 
-    	res.json({status: 200, covoitDetail: covoitDetail[0]});
+    	res.json({status: 200, covoitDetail: covoitDetail});
     })
 
 

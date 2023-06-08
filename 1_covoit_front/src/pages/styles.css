@@ -54,7 +54,7 @@ h2, h3, p {
 }
 
 .containeur {
-    padding: 5px;
+    padding: 2px;
 }
 
 .bouton {
@@ -62,22 +62,17 @@ h2, h3, p {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    padding: 15px;
-}
-.repondre {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 5px;
 }
 .deposer {
     width: 100%;
     text-decoration: none;
+    padding: 5px;
 }
 
 .Recherche,
 .Propose {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     width: 100%;
     border-radius: 5px;
@@ -86,16 +81,28 @@ h2, h3, p {
 }
 
 .Recherche {
-    background-color: #b3fcd2;
+    background-color: #e6fff1;
 }
 
 .Propose {
-    background-color: #f9ffc3;
+    background-color: #fdffeb;
+}
+.type {
+    width: 25%; 
 }
 
 .detail {
     text-align:left;
+    width: 50%;
 }
+.repondre {
+    width: 25%; 
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0 1%;
+}
+
 .icon_x2 {
     width: 20px;
     height: 20px;
@@ -108,8 +115,7 @@ h2, h3, p {
     border: 1px solid #000;
     background-color: #fff;
     color: #000;
-    padding: 10px;
-    padding-left: 10px;
+    padding: 7px;
     border-radius: 50px;
     padding-top: 5px;
     padding-left: 7px;
@@ -136,4 +142,6 @@ h2, h3, p {
     .logo {
         display: none;
     }
+
+    
 }
