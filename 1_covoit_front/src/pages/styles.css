@@ -10,7 +10,9 @@ h2, h3, p {
     background-color: #fff;
     padding: 1%;
 }
-
+section {
+    margin-bottom: 20px;
+}
 .flex-50 {
     display: flex;
     flex-direction: row;
@@ -55,6 +57,11 @@ h2, h3, p {
 
 .containeur {
     padding: 2px;
+    margin-bottom: 20px;
+}
+
+.p14 {
+    font-size:14px;
 }
 
 .bouton {
@@ -68,6 +75,7 @@ h2, h3, p {
     width: 100%;
     text-decoration: none;
     padding: 5px;
+    margin: 0 0 15px 0 ;
 }
 
 .Recherche,

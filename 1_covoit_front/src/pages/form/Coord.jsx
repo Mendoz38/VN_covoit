@@ -1,15 +1,13 @@
 import { useState } from "react"
+import { useSelector } from "react-redux";
+import { selectUser } from "../../slices/userSlice";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faCoffee, faPhone, faVenusMars } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo, faPhone, faVenusMars } from '@fortawesome/free-solid-svg-icons'
 
 
 const Coord = ({ page, setPage, formData, setFormData }) => {
-
-
-  const [selected, setSelected] = useState();
-
-
+  const user = useSelector(selectUser);
 
   return (
     <div className="card">
@@ -24,8 +22,8 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
           className="cust-form-control" 
           name="nom" 
           placeholder="Votre nom" 
-          value={formData.nom}
-          onChange={(e) => setFormData({ ...formData, nom: e.target.value }) }
+          defaultValue={user.infos.nom}
+          onChange={(e) => setFormData({ ...formData, nom: e.target.defaultValue }) }
         />
       </div>
       <div className="cust-input-group">
@@ -37,9 +35,9 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
           className="cust-form-control" 
           name="prenom" 
           placeholder="Votre prénom" 
-          value={formData.prenom}
+          defaultValue={user.infos.prenom}
           required
-          onChange={(e) => setFormData({ ...formData, prenom: e.target.value }) } 
+          onChange={(e) => setFormData({ ...formData, prenom: e.target.defaultValue }) } 
         />
       </div>
 
@@ -69,13 +67,14 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
         </div>
         <input
           type="email"
+          readOnly
           className="cust-form-control"
           aria-label="Username"
           aria-describedby="email"
           name="email"
           placeholder="vous@e-mail.com"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value }) }
+          defaultValue={user.infos.mail}
+          onChange={(e) => setFormData({ ...formData, email: e.target.defaultValue }) }
         />
       </div>
 

@@ -48,13 +48,13 @@ module.exports = (app, db)=>{
     	res.json({status: 200, covoits: covoits});
     })
 
-	// 1 Covoit par salon  A FAIRE
+	// Covoit par salon  OK
     app.get('/zzz/covoit/one/:id', async (req,  res, next)=>{
 
     	let id = req.params.id;
 		console.log("dans Route covoit/one/:id", req.params.id)
     	let covoitDetail = await CovoitModel.getOneCovoit(id);
-		console.log("covoitDetail : ", covoitDetail)
+		// console.log("covoitDetail : ", covoitDetail)
     	if(covoitDetail.code) {
     		res.json({status: 500, err: covoitDetail});
     	}

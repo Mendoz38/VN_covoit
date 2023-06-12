@@ -11,22 +11,11 @@ import { selectUser } from "../slices/userSlice";
 import { repCovoit } from '../api/covoit'
 
 const Reponse_covoit = (props) => {
-    //on prépare la fonctionnalité pour dispatcher notre action dans le store
     const user = useSelector(selectUser);
-
     const params = useParams();
-    
-    console.log("params : ", params)
-    // inverser Recherche / Propose
+
     const [type, setType] = useState("")
-    useEffect(() => {
-        if (params.type === "Propose") { setType("Recherche") }
-        if (params.type === "Recherche") { setType("Propose") }
-
-    }, [])
-
-    const [choix, setChoix] = useState("")
-    const [places, setPlaces] = useState("")
+//    const [places, setPlaces] = useState("")
 
     const Type = () => {
         if (props.liste.choix === "cherche") { return (<FontAwesomeIcon className="round_icon" icon={faPersonWalking} />) }
@@ -42,10 +31,10 @@ const Reponse_covoit = (props) => {
         id_salon: url_id_salon,
         id_annonce: params.id,
         // mettre le type Recherche / Propose sélectionné
-        choix: type,
+        choix: params.type,
         places: "",
         depart: "",
-        arrivee: url_salon,
+        arrivee: params.salon,
         date_aller: "",
         heure: "",
         nom: user.infos.nom,
@@ -57,6 +46,15 @@ const Reponse_covoit = (props) => {
         message: "",
     });
     console.log("formData : ", formData)
+
+
+    useEffect(() => {
+        // inverser Recherche / Propose
+        if (params.type === "Propose") { setType("Recherche") }
+        if (params.type === "Recherche") { setType("Propose") }
+
+    }, [formData, type])
+
 
     const repondre = () => {
         repCovoit(formData)
@@ -79,6 +77,7 @@ const Reponse_covoit = (props) => {
     }
 
     return (
+        <section>
         <form>
             <p> <br /></p>
             <div className="card">
@@ -92,11 +91,11 @@ const Reponse_covoit = (props) => {
                         </div>
                         <input
                             type="text"
+                            readOnly
                             diseable="true"
                             className="cust-form-control"
                             name="type"
                             value={type}
-                            onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
                         />
                     </div>
 
@@ -111,7 +110,6 @@ const Reponse_covoit = (props) => {
                             value={formData.places}
                             onChange={(e) => {
                                 setFormData({ ...formData, places: e.target.value })
-                                setPlaces(e.target.value)
                             }}
                         >
                             <option value="">Nombre de places</option>
@@ -236,6 +234,33 @@ const Reponse_covoit = (props) => {
                 </div>
             </div>
 
+            <div className="cust-input-group">
+                        <div className="cust-input-group-prepend">
+                            <span className="cust-input-group-text" id="type">Contrepartie demandé</span>
+                        </div>
+                        <input
+                            type="text"
+                            readOnly
+                            diseable="true"
+                            className="cust-form-control"
+                            name="type"
+                            value={params.contrepartie}
+                        />
+                    </div>
+
+
+            <div className="cust-input-group">
+                <textarea
+                    id="message"
+                    name="message"
+                    required
+                    placeholder="Complétez votre annonce par un petit message ..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                ></textarea>
+            </div>
+            <p>  <FontAwesomeIcon icon={faCircleInfo} /> <a href="https://www.vinsnaturels.fr" target="_blank">Vinsnaturels.fr   </a> met juste en relation les utilisateurs, il ne peut être tenu responsable </p>
+
             <button
                 className="envoyer"
                 onClick={(e) => {
@@ -246,6 +271,7 @@ const Reponse_covoit = (props) => {
             </button>
 
         </form>
+    </section>
     )
 }
 

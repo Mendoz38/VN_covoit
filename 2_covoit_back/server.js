@@ -18,6 +18,7 @@ const mysql = require('promise-mysql');
 
 //ici on appelera nos routes
 const CovoitRoutes = require('./routes/CovoitRoutes');
+const ReponseRoutes = require('./routes/ReponseRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes')
 
@@ -45,6 +46,7 @@ mysql.createConnection({
 
     //appel de nos routes
     CovoitRoutes(app, db)
+    ReponseRoutes(app, db)
     userRoutes(app, db)
     authRoutes(app, db)
     

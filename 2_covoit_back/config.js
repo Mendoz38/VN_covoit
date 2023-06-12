@@ -1,5 +1,5 @@
 module.exports = {
-    db: { // identifiants d'Heroku
+    db: { // identifiants en local
         host: "localhost",
         user: "root", 
         password: "root",

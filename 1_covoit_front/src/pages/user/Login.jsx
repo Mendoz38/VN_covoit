@@ -3,6 +3,7 @@ import { Navigate, Link, useParams } from "react-router-dom";
 import { loginUser } from "../../api/user";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slices/userSlice";
+import Navigation from './../Navigation'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
@@ -62,6 +63,7 @@ const Login = (props) => {
 
   return (
     <main>
+    <Navigation />
       {redirect && <Navigate to="/" />}
       {error !== null ? (
         <h2 className="errorMsg">{error}</h2>

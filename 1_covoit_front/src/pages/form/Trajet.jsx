@@ -3,16 +3,9 @@ import moment from 'moment'
 
 const Trajet = ({ page, setPage, formData, setFormData }) => {
 
-  const [choix, setChoix] = useState("")
-  const [places, setPlaces] = useState("")
-  const [depart, setDepart] = useState("")
-  const [arrivee, setArrivee] = useState("")
-  const [date_aller, setDate_aller] = useState("")
-  const [heure, setHeure] = useState(false)
-  const [next, setNext] = useState()
+//  const [message, setMessage] = useState("")
   
   // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
-  const url_id_salon = window.localStorage.getItem('url_id_salon')
   const url_salon = window.localStorage.getItem('url_salon')
   const url_date = window.localStorage.getItem('url_date')
 
@@ -20,14 +13,25 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
   const date_deb = moment(url_date).subtract(1, "days").format('yyyy-MM-DD');
   const date_fin = moment(url_date).add(2, "days").format('yyyy-MM-DD');
   
+  const [active, setActive] = useState("") 
 
   useEffect(()=>{
-    if (!choix || !places || !depart || !arrivee || !date_aller || !heure) { 
-        // console.log("Pas ok") 
+    
+    //vérifie que tous les champs obligatoire soient remplis
+    /*--------------------A FAIRE -------------------------------
+    if (!choix || !places || !depart || !date_aller || !heure) { 
+        setActive("ok");
+        setMessage("Merci de remplir tous les champs", choix);
       }
-    else { setNext("OK") }
+    else { 
+      setActive("");
+      setMessage("");
+    }
+    --------------------A FAIRE -------------------------------
+    */
   
-},[])
+},[formData])
+
 
   return (
     <div className="card">
@@ -45,7 +49,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
             value={formData.choix}
             onChange={(e) => {
               setFormData({ ...formData, choix: e.target.value })
-              setChoix(e.target.value)
             }}
           >
             <option value="">Recherche / Propose</option>
@@ -65,7 +68,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
             value={formData.places}
             onChange={(e) => {
               setFormData({ ...formData, places: e.target.value })
-              setPlaces(e.target.value)
             }}
           >
             <option value="">Nombre de places</option>
@@ -98,7 +100,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
           value={formData.depart}
           onChange={(e) => {
             setFormData({ ...formData, depart: e.target.value })
-            setDepart(e.target.value)
           }}
         />
       </div>
@@ -116,25 +117,10 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
           defaultValue={url_salon}
           onChange={(e) => {
             setFormData({ ...formData, arrivee: e.target.defaultValue })
-            setArrivee(e.target.value)
           }}
 
         />
       </div>
-
-      <input
-          type="hidden"
-          disabled
-          className="cust-form-control"
-          aria-describedby="id_salon"
-          name="id_salon"
-          defaultValue={url_id_salon}
-          onChange={(e) => {
-            setFormData({ ...formData, id_salon: e.target.defaultValue })
-            setArrivee(e.target.value)
-          }}
-
-        />
 
 
       <div className="step-text">Date et Heure</div>
@@ -152,7 +138,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
             value={formData.date_aller}
             onChange={(e) => {
               setFormData({ ...formData, date_aller: e.target.value })
-              setDate_aller(e.target.value)
             }}
           />
         </div>
@@ -167,7 +152,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
             value={formData.heure}
             onChange={(e) => {
               setFormData({ ...formData, heure: e.target.value })
-              setHeure(e.target.value)
             }}
           />
 
@@ -176,15 +160,22 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
 
 
 
-
-      <button
+      <button 
+        disabled={active}
         onClick={() => {
           setPage(page + 1);
         }}>
         Suivant
       </button>
+
+
     </div>
   );
 };
 
 export default Trajet;
+
+/*  pour afficher le message d'erreur après button
+      <p className="errorMsg"><b>{message}</b></p>
+
+*/

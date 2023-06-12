@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faCircleInfo, faCoffee, faHandHoldingHeart, faPhone, faVenusMars } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
@@ -12,9 +12,12 @@ import Infos from "./form/Infos";
 import Envoyer from "./form/Envoyer";
 
 
-const Deposer = (props) => {
+const Deposer = () => {
 
   const user = useSelector(selectUser);
+
+  // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
+  // necessaire pour initialiser les items statiques du formData
   const url_id_salon = window.localStorage.getItem('url_id_salon')
   const url_salon = window.localStorage.getItem('url_salon')
 
@@ -28,10 +31,10 @@ const Deposer = (props) => {
     arrivee: url_salon,
     date_aller: "",
     heure: "",
-    nom: "",
-    prenom: "",
+    nom:user.infos.nom,
+    prenom: user.infos.prenom,
     telephone: "",
-    email: "",
+    email: user.infos.mail,
     genre: "",
     age: "",
     contrepartie: "",
@@ -68,40 +71,37 @@ const Deposer = (props) => {
   console.log("formData :", formData)
 
   return (
-    <div className="containeur">
+    <section>
       <div className="container">
-      <div className="progress-bar">
-            <div className="step">
-                <p>Trajet</p>
-                <div className={"bullet " + (page > 0 ? 'active' : '')}>
-                    <span>1</span>
-                </div>
-                <div className={"check fas fa-check " + (page > 0 ? 'active' : '')}><FontAwesomeIcon icon={faCheck} /></div>
+        <div className="progress-bar">
+          <div className="step">
+            <p>Trajet</p>
+            <div className={"bullet " + (page > 0 ? 'active' : '')}>
+              <span>1</span>
             </div>
-            <div className="step">
-                <p>Coordonnées</p>
-                <div className={"bullet " + (page > 1 ? 'active' : '')}>
-                    <span>2</span>
-                </div>
-                <div className={"check fas fa-check " + (page > 1 ? 'active' : '')}><FontAwesomeIcon icon={faCheck} /></div>
+            <div className={"check fas fa-check " + (page > 0 ? 'active' : '')}><FontAwesomeIcon icon={faCheck} /></div>
+          </div>
+          <div className="step">
+            <p>Coordonnées</p>
+            <div className={"bullet " + (page > 1 ? 'active' : '')}>
+              <span>2</span>
             </div>
-            <div className="step">
-                <p>Informations</p>
-                <div className={"bullet " + (page > 2 ? 'active' : '')}>
-                    <span>3</span>
-                </div>
-                <div className={"check fas fa-check " + (page > 2 ? 'active' : '')}><FontAwesomeIcon icon={faCheck} /></div>
+            <div className={"check fas fa-check " + (page > 1 ? 'active' : '')}><FontAwesomeIcon icon={faCheck} /></div>
+          </div>
+          <div className="step">
+            <p>Informations</p>
+            <div className={"bullet " + (page > 2 ? 'active' : '')}>
+              <span>3</span>
             </div>
+            <div className={"check fas fa-check " + (page > 2 ? 'active' : '')}><FontAwesomeIcon icon={faCheck} /></div>
+          </div>
         </div>
-        </div>
+      </div>
 
       <div>{componentList[page]}</div>
 
-
-    </div>
-
+    </section>
   )
-
 }
 
 export default Deposer

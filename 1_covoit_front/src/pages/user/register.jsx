@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { saveUser } from "../../api/user";
+import Navigation from './../Navigation'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
@@ -38,7 +39,7 @@ const Register = (props) => {
       nom === "" ||
       mail === "" ||
       password === "" ||
-      confirmPassword === "" 
+      confirmPassword === ""
     ) {
       setError("Merci de remplir tous les champs");
     } else if (password === confirmPassword) {
@@ -48,7 +49,6 @@ const Register = (props) => {
         mail: mail,
         password: password,
       };
-      console.log("data", data)
       saveUser(data)
         .then((response) => {
           if (response.status !== 200) {
@@ -67,11 +67,12 @@ const Register = (props) => {
   }
 
 
-  
+
 
 
   return (
     <div>
+    <Navigation />
       <h1>Bienvenue sur <span className="clair">Vinsnaturels</span>.fr</h1>
 
       <div className="log-container">
@@ -176,8 +177,14 @@ const Register = (props) => {
           </div>
 
           : <div>
-            <h2>Un mail vous a été envoyé </h2>
-            <p>Merci de valider votre compte pour vous connecter</p>
+            <h2>Votre compte a bien été crée </h2>
+
+            <div className="navigation">
+              <Link className=" deposer" to="/user/Login" >
+                <button className="envoyer"> Se connecter </button>
+              </Link>
+            </div>
+
           </div>
         }
 

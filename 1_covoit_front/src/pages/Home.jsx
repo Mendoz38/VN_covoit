@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import moment from 'moment'
 import { Link } from "react-router-dom";
 import { CovoitById } from '../api/covoit'
+import Liste_reponses from './Liste_reponses'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCar, faPersonWalking, faUser, faPerson, faPersonDress } from '@fortawesome/free-solid-svg-icons'
+import { faCar, faPersonWalking, faPerson, faPersonDress } from '@fortawesome/free-solid-svg-icons'
 
 
 const Home = (props) => {
@@ -52,9 +53,9 @@ const Home = (props) => {
 
     return (
         <div className="containeur">
-            <h1> Liste des covoiturages ({salonCovoit.length}) </h1>
+            <h1> {salonCovoit.length} covoiturage(s) pour {url_salon}</h1>
             <div className="deposer">
-        <Link className="bouton deposer" to="/Deposer">Déposer une annonce pour {url_salon} </Link>
+        <Link className="button-form deposer" to="/Deposer"> Déposer une annonce </Link>
         </div>
 
             <section>
@@ -63,12 +64,12 @@ const Home = (props) => {
                         <div className={`liste_covoit ${liste.choix}`} key={liste.id}>
                             <div className="type">
                                 <Type key={liste.id} liste={liste} />
-                                <p>Vers <b>{liste.arrivee}</b></p>
+                                <p><b>{liste.arrivee}</b></p>
 
                             </div>
 
                             <div className="detail">
-                                <h3><Genre liste={liste} /> {liste.prenom} {liste.nom} - {liste.age} ans</h3>
+                                <h3><Genre liste={liste} /> {liste.prenom} {liste.nom} - <span className="p14">{liste.age} ans </span> </h3>
                                 <h2>{liste.choix} {liste.places} place(s) </h2>
                                 <p>De : <b>{liste.depart}</b>, départ le <b>{liste.date_aller}</b>  à  <b>{liste.heure}</b> </p>
 
@@ -77,14 +78,15 @@ const Home = (props) => {
 
                             </div>
                             <div className="repondre " >
-                                <Link className="bouton" to={`/reponse_covoit/${liste.choix}/${liste.arrivee}/${liste.id}`}> Prendre contact </Link>
+                                <Link className="bouton" to={`/reponse_covoit/${liste.choix}/${liste.id}/${liste.arrivee}/${liste.id_salon}/${liste.contrepartie}`}> Prendre contact </Link>
                                 <p>Publié le : <b><DateCrea liste={liste} /></b></p>
+                                <Liste_reponses  liste={liste}  /> 
                             </div>
                         </div>
                     )
 
                 })}
-            </section>
+            </section> 
         </div>
 
     )
