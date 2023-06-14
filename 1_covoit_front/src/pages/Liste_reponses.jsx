@@ -21,7 +21,7 @@ const Liste_reponses = (props) => {
 
     }, [])
 
-    return (<p><i>{nbrReponse} Interractions</i></p>) 
+    return (<span>{nbrReponse} </span>) 
 
 }
 

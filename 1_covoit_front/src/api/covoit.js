@@ -13,26 +13,25 @@ export function addCovoit(user) {
     })
 }
 
-//répondre à un covoiturage - OK
-export function repCovoit(data) {
-    console.log("repCovoit", data)
-    return axios.post(config.api_url+'/zzz/reponse/add', data)
-    .then((res)=>{
-        console.log("then res.data", res.data)
-        return res.data
-    })
-    .catch((err)=>{
-        console.log("XXXXXX catch err", err)
-        return err
-    })
-}
-
 // afficher tous les covoiturage - OK
 export function getAllCovoit(data) {
     //console.log("getAllCovoit", data)
     return axios.get(config.api_url+'/zzz/covoit/all', data)
     .then((res)=>{
         //console.log("res.data", res.data)
+        return res.data
+    })
+    .catch((err)=>{
+        return err 
+    })
+} 
+
+// afficher tous les covoiturage par utilisateur- OK
+export function getAllCovoitById(id_membre) {
+    console.log("getAllCovoitById", id_membre)
+    return axios.get(config.api_url+`/zzz/covoit/user/${id_membre}`, id_membre)
+    .then((res)=>{
+        console.log("res.data", res.data)
         return res.data
     })
     .catch((err)=>{

@@ -17,11 +17,11 @@ class CovoitModel {
 				})
 	}
 
-	// Réponse à un covoit 
-	static async reponseCovoit(req){
-		console.log("Dans Model  reponseCovoit  ")
-		return db.query('INSERT INTO vn_covoit_reponse (id_membre, id_salon, reponse_id, choix, places, depart, arrivee,  date_aller, heure, date_retour, nom, prenom, email, telephone, genre, age, contrepartie, message, date_crea ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())', 
-		[ req.body.id_membre, req.body.id_salon, req.body.id_annonce, req.body.choix, req.body.places, req.body.depart, req.body.arrivee, req.body.date_aller, req.body.heure, req.body.date_retour, req.body.nom,  req.body.prenom, req.body.email, req.body.telephone, req.body.genre, req.body.age , req.body.contrepartie , req.body.message  ])
+
+	// Tous les covoits OK 
+	static async getAllCovoits(){
+	console.log("Dans Model  getAllCovoits avec *")
+		return db.query('SELECT * FROM vn_covoit ORDER BY id DESC')
 				.then((result)=>{
 					return result
 				})
@@ -30,11 +30,13 @@ class CovoitModel {
 				})
 	}
 
-	// Tous les covoits OK 
-	static async getAllCovoits(){
-	console.log("Dans Model  getAllCovoits avec *")
-		return db.query('SELECT * FROM vn_covoit ORDER BY id DESC')
+
+	// Tous les covoits par utilisateur 
+	static async getAllCovoitById(id){
+	console.log("Dans Model  getAllCovoitsById ", id)
+		return db.query('SELECT * FROM vn_covoit WHERE id_membre = ?', [id])
 				.then((result)=>{
+					console.log("Nombre d'entrées :",result.length)
 					return result
 				})
 				.catch((err)=>{

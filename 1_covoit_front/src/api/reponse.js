@@ -4,6 +4,20 @@ import { config } from "../config";
 
 
 
+//répondre à un covoiturage - OK
+export function repCovoit(data) {
+    console.log("repCovoit", data)
+    return axios.post(config.api_url+'/zzz/reponse/add', data)
+    .then((res)=>{
+        console.log("then res.data", res.data)
+        return res.data
+    })
+    .catch((err)=>{
+        console.log("XXXXXX catch err", err)
+        return err
+    })
+}
+
 // Réponses par annonce
 export function RepByAnnonce(id_annonce) {
     //console.log("RepByCovoit", id_annonce)

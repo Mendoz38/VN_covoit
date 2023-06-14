@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
+import Profil from "./user/Profil"
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -12,7 +13,7 @@ const Home = () => {
         <div className="footer">
             {user.isLogged ? (
                 <div>
-                    <p> Bienvenue {user.infos.prenom} {user.infos.nom} -  <Link to="/Deposer">Deposer</Link></p>
+                    <p> Bienvenue {user.infos.prenom} {user.infos.nom} -  <Link to="/user/Profil">Mes annonces</Link></p>
                 </div>
             ) : (
                 <p className="flex-50">

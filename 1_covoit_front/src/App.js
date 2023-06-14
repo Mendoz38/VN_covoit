@@ -12,6 +12,7 @@ import Deposer from './pages/Deposer'
 import Login from './pages/user/Login'
 import Logout from './pages/user/Logout'
 import Register from './pages/user/Register'
+import Profil from './pages/user/Profil'
 
 import { Routes, Route } from 'react-router-dom'
 import { Navigate } from "react-router";
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/user/Logout" element={<RequireAuth child={Logout} auth={true} />} />
         <Route exact path="/user/Login" element={<Login />} />
         <Route exact path="/user/Register" element={<Register />} />
+        <Route exact path="/user/Profil" element={<RequireAuth child={Profil} auth={true} />} />
 
 
 
