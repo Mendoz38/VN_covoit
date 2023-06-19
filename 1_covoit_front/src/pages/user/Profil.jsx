@@ -10,7 +10,7 @@ import Liste_reponses from './../Liste_reponses'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 
-const Login = (props) => {
+const Profil = (props) => {
     const user = useSelector(selectUser)
     const [salonCovoit, setSalonCovoit] = useState([])
 
@@ -53,9 +53,9 @@ const Login = (props) => {
 
                             </div>
                             <div className="repondre " >
-                                <Link className="bouton" to={`/edit_covoit/${liste.id}`}> Modifier </Link>
+                                <Link className="bouton" to={`/Edit_covoit/${liste.id}`}> Modifier </Link>
                                 <p></p>
-                                <Link className="bouton" to={`/edit_covoit/${liste.id}`}> <Liste_reponses  liste={liste}  /> réponse(s)  </Link>
+                                <Link className="bouton" to={`/Detail/${liste.id}`}> <Liste_reponses  liste={liste}  /> réponse(s)  </Link>
                                 
                             </div>
                         </div>
@@ -67,4 +67,4 @@ const Login = (props) => {
 
 }
 
-export default Login
+export default Profil

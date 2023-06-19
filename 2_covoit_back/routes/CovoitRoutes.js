@@ -61,13 +61,28 @@ module.exports = (app, db)=>{
     	res.json({status: 200, covoitDetail: covoitDetail});
     })
 
+	// 1 Covoit détail par id 
+    app.get('/zzz/covoit/detail/:id', async (req,  res, next)=>{
+
+    	let id = req.params.id;
+		console.log("dans Route covoit/detail/:id", req.params.id)
+    	let covoitDetail = await CovoitModel.covoitDetail(id);
+		console.log("covoitDetail : ", covoitDetail)
+    	if(covoitDetail.code) {
+    		res.json({status: 500, err: covoitDetail});
+    	}
+
+    	res.json({status: 200, covoitDetail: covoitDetail});
+    })
 
 
-	// Mise à jour covoit  A FAIRE
+
+	// Mise à jour covoit  EN COURS
     app.put('/zzz/covoit/update/:id',  withAuth, async (req,  res, next)=>{
-		console.log("data", req.params)
+		console.log("data", req.body)
     		
-    	let result = await CovoitModel.updateCovoit(req, req.params.id);
+    	let result = await CovoitModel.updateCovoit(req);
+		console.log("req.body.id",req.body.id)
     	if(result.code) {
     		res.json({status: 500, err: result});
     	}

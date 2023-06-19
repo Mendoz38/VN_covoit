@@ -4,6 +4,7 @@ import { config } from "../config";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "../slices/userSlice";
+import { checkToken } from '../api/user'
 
 
 
@@ -41,8 +42,7 @@ const RequireAuth = (props) => {
     //si le token est null et que la route est protégée
     if (token === null && props.auth) {
       //on demande une redirection
-      //console.log("Mettre setRedirect(true)")
-      //setRedirect(true);
+      setRedirect(true);
       //sinon
     } else {
       //console.log("si l'utilisateur est déconnecté dans le store de redux", token);
@@ -50,7 +50,7 @@ const RequireAuth = (props) => {
       if (user.isLogged === false) {
         //console.log("user.isLogged est en false", user.isLogged)
         //on va vérifier le token (ajax)
-        axios.get(config.api_url + "/api/v1/checkToken", { headers: { "x-access-token": token } })
+        checkToken()
           .then((res) => {
             //console.log("RequireAuth useEffect", res);
             //si le status de la réponse n'est pas 200

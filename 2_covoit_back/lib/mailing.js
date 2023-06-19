@@ -1,5 +1,11 @@
 const nodeMailer = require('nodemailer');
 
+config = require('../config')
+
+let email = config.auth.user;
+let pass = config.auth.pass;
+let privateKey = config.dkim.privateKey;
+
 //module d'envoi de mail grace à la librairie nodeMailer
 module.exports =  (mailTo, subject, title, text) =>{
       
@@ -8,6 +14,15 @@ module.exports =  (mailTo, subject, title, text) =>{
           host: 'smtp.ionos.fr',
           port: 465,
           secure: true,
+          auth: {
+              user: email,
+              pass: pass
+          },
+          dkim: {
+            domainName: "vinsnaturels.fr",
+            keySelector: "rsa",
+            privateKey: privateKey
+          }
         
       });
 

@@ -30,9 +30,9 @@ const password = process.env.PASSWORD_DB || config.db.password;
 
 mysql.createConnection({
 	host: host,
-	database: database,
 	user: user,
-	password: password
+	password: password,
+	database: database
 	//port: port
 }).then((db) => {
     console.log('connecté bdd');

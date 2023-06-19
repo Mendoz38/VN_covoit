@@ -44,10 +44,22 @@ class CovoitModel {
 				})
 	}
 
-	// 1 Covoit détail  A FAIRE
+	// Liste des covoit par salon
 	static async getOneCovoit(id){
-	console.log("Dans Model  covoit/one/:id", id)
-		return db.query('SELECT * FROM vn_covoit WHERE id_salon = ?', [id])
+		console.log("Dans Model  covoit/one/:id", id)
+			return db.query('SELECT * FROM vn_covoit WHERE id_salon = ?', [id])
+					.then((result)=>{
+						return result
+					})
+					.catch((err)=>{
+						return err
+					})
+		}
+
+	// 1 Covoit détail  A FAIRE
+	static async covoitDetail(id){
+	console.log("Dans Model  covoit/detail/:id", id)
+		return db.query('SELECT * FROM vn_covoit WHERE id = ?', [id])
 				.then((result)=>{
 					return result
 				})
@@ -57,13 +69,16 @@ class CovoitModel {
 	}
 
 	// Mise à jour covoit  A FAIRE
-	static  updateCovoit(req, id){
-		console.log("Dans model id:", id)
-		return db.query('UPDATE vn_covoit SET domaine = ?, nom = ?, prenom = ?, nom2 = ?, prenom2 = ? WHERE id = ?', [req.body.domaine, req.body.nom, req.body.prenom, req.body.nom2, req.body.prenom2, id])
+	static  updateCovoit(req){
+		console.log("Dans model id:", req.body.id)
+		return db.query('UPDATE vn_covoit SET places = ?, depart = ?, date_aller = ?, heure = ?, nom = ? , prenom = ? , telephone = ? , genre = ? , age = ? , contrepartie = ? , message = ? , date_crea = NOW() WHERE id = ?', 
+		[req.body.places, req.body.depart, req.body.date_aller, req.body.heure, req.body.nom, req.body.prenom, req.body.telephone, req.body.genre, req.body.age, req.body.contrepartie, req.body.message, req.body.id])
 				.then((result)=>{
+					console.log("ok !!!")
 					return result
 				})
 				.catch((err)=>{
+					console.log("KO", err)
 					return err
 				})
 	}

@@ -17,7 +17,7 @@ const Home = () => {
                 </div>
             ) : (
                 <p className="flex-50">
-                    <Link to="/user/Login">Se connecter</Link>
+                    <Link to="/Login">Se connecter</Link>
                     <Link to="/user/Register">S'enregistrer</Link>
                 </p>
             )

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "../config";
+const token = window.localStorage.getItem("VN_token");
 
 // Ajout d'un covoiturage - OK
 export function addCovoit(user) {
@@ -48,6 +49,31 @@ export function CovoitById(id_salon) {
         return res.data
     })
     .catch((err)=>{
+        return err
+    })
+}
+
+// 1 covoit détail
+export function CovoitDetail(id) {
+    console.log("zzz/covoit/detail/:id", id)
+    return axios.get(`${config.api_url}/zzz/covoit/detail/${id}`, id)
+    .then((res)=>{
+        console.log("res.data dans api/covoit.js", res.data.covoitDetail[0])
+        return res.data.covoitDetail[0]
+    })
+    .catch((err)=>{
+        return err
+    })
+}
+
+// modification du covoit
+export function editCovoit(newData) {
+    console.log("zzz/covoit/update/:id", newData)
+    return axios.put(`${config.api_url}/zzz/covoit/update/${newData.id}`, newData, {headers: { "x-access-token": token }})
+    .then((res)=>{
+        return res.data
+    })
+    .catch ((err)=>{
         return err
     })
 }

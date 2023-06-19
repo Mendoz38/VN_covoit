@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Routes, Route } from 'react-router-dom'
 import RequireAuth from "./helpers/require-auth";
 
 import './pages/styles.css';
@@ -13,8 +14,9 @@ import Login from './pages/user/Login'
 import Logout from './pages/user/Logout'
 import Register from './pages/user/Register'
 import Profil from './pages/user/Profil'
+import Edit_covoit from './pages/user/Edit_covoit'
+import Detail from './pages/Detail'
 
-import { Routes, Route } from 'react-router-dom'
 import { Navigate } from "react-router";
 
 function App() {
@@ -27,9 +29,11 @@ function App() {
         <Route exact path="/Reponse_covoit/:type/:id/:salon/:id_salon/:contrepartie" element={<RequireAuth child={Reponse_covoit} auth={true} />} />
         <Route exact path="/Liste_reponses" element={<RequireAuth child={Liste_reponses} auth={true} />} />
         <Route exact path="/user/Logout" element={<RequireAuth child={Logout} auth={true} />} />
-        <Route exact path="/user/Login" element={<Login />} />
+        <Route exact path="/Login" element={<Login />} />
         <Route exact path="/user/Register" element={<Register />} />
         <Route exact path="/user/Profil" element={<RequireAuth child={Profil} auth={true} />} />
+        <Route exact path="/Edit_covoit/:id" element={<RequireAuth child={Edit_covoit} auth={true} />} />
+        <Route exact path="/Detail" element={<RequireAuth child={Detail} auth={true} />} />
 
 
 

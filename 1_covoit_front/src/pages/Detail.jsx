@@ -1,31 +1,25 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment'
+//import { Link, NavLink  } from 'react-router-dom'
 import { Link } from "react-router-dom";
-import { CovoitById } from '../api/covoit'
-import Liste_reponses from './Liste_reponses'
+import { getAllCovoit } from '../api/covoit'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCar, faPersonWalking, faPerson, faPersonDress } from '@fortawesome/free-solid-svg-icons'
+import { faCar, faPersonWalking, faUser, faPerson, faPersonDress } from '@fortawesome/free-solid-svg-icons'
+import Deposer from './Deposer'
+// import Liste_covoit from "./Liste_covoit";
 
+const Detail = (props) => {
+    const [allCovoit, setAllCovoit] = useState([])
 
-const Home = (props) => {
-    const [salonCovoit, setSalonCovoit] = useState([])
-
-
-  // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
-  const url_salon = window.localStorage.getItem('url_salon')
+    // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
+    const url_date = window.localStorage.getItem('url_date')
+    const date = moment(url_date).format('DD mm yyyy');
 
     useEffect(() => {
-    // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
-    const url_id_salon = window.localStorage.getItem('url_id_salon')
-        console.log("CovoitById", url_id_salon)
-        CovoitById(url_id_salon)
-            .then((result) => {
-                //console.log("CovoitById", result.covoitDetail)
-
-                setSalonCovoit(result.covoitDetail)
-                //console.log("salonCovoit", salonCovoit)
-
+        getAllCovoit()
+            .then((res) => {
+                setAllCovoit(res.covoits)
             })
             .catch(err => console.log(err))
 
@@ -53,23 +47,20 @@ const Home = (props) => {
 
     return (
         <div className="containeur">
-            <h1> {salonCovoit.length} covoiturage(s) pour {url_salon}</h1>
-            <div className="deposer">
-        <Link className="button-form deposer" to="/Deposer"> Déposer une annonce </Link>
-        </div>
+            <h1> Liste des covoiturages ({allCovoit.length}) </h1>
 
             <section>
-                {salonCovoit.map((liste) => {
+                {allCovoit.map((liste) => {
                     return (
                         <div className={`liste_covoit ${liste.choix}`} key={liste.id}>
                             <div className="type">
                                 <Type key={liste.id} liste={liste} />
-                                <p><b>{liste.arrivee}</b></p>
+                                <p>Vers <b>{liste.arrivee}</b></p>
 
                             </div>
 
                             <div className="detail">
-                                <h3><Genre liste={liste} /> {liste.prenom} {liste.nom} - <span className="p14">{liste.age} ans </span> </h3>
+                                <h3><Genre liste={liste} /> {liste.prenom} {liste.nom} - {liste.age} ans</h3>
                                 <h2>{liste.choix} {liste.places} place(s) </h2>
                                 <p>De : <b>{liste.depart}</b>, départ le <b>{liste.date_aller}</b>  à  <b>{liste.heure}</b> </p>
 
@@ -78,24 +69,23 @@ const Home = (props) => {
 
                             </div>
                             <div className="repondre " >
-                                <Link className="bouton" to={`/reponse_covoit/${liste.choix}/${liste.id}/${liste.arrivee}/${liste.id_salon}/${liste.contrepartie}`}> Prendre contact </Link>
+                                <Link className="repondre bouton" to={`/covoit/${liste.id}`}> Prendre contact </Link>
                                 <p>Publié le : <b><DateCrea liste={liste} /></b></p>
-                                <i><Liste_reponses  liste={liste}  /> intrractions</i>
                             </div>
                         </div>
                     )
 
                 })}
-            </section> 
+            </section>
         </div>
 
     )
 
 }
 
-export default Home
+export default Detail
 
 /*
- 
+
 
 */

@@ -29,3 +29,13 @@ export const loginUser = (data) => {
     .catch((err) => err.response.data);
 };
 
+export function checkToken(){
+  console.log("checkToken : ", token)    
+  return axios.get(`${config.api_url}/api/v1/checkToken`, {headers: {"x-access-token": token}})
+      .then((response)=>{
+          return response.data
+      })
+      .catch((err)=>{
+          return err
+      })
+}
