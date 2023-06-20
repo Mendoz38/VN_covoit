@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { config } from "../config";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "../slices/userSlice";
 import { checkToken } from '../api/user'
 
-
-
 //HOC de controle des data et de la sécurité
 const RequireAuth = (props) => {
+  console.log("auth", props.auth)
   const dispatch = useDispatch();
   const Child = props.child;
 
@@ -42,6 +39,7 @@ const RequireAuth = (props) => {
     //si le token est null et que la route est protégée
     if (token === null && props.auth) {
       //on demande une redirection
+      //console.log("Mettre setRedirect(true)")
       setRedirect(true);
       //sinon
     } else {
@@ -50,11 +48,11 @@ const RequireAuth = (props) => {
       if (user.isLogged === false) {
         //console.log("user.isLogged est en false", user.isLogged)
         //on va vérifier le token (ajax)
-        checkToken()
+        checkToken(token)
           .then((res) => {
-            //console.log("RequireAuth useEffect", res);
+            //console.log("RequireAuth useEffect", res.status);
             //si le status de la réponse n'est pas 200
-            if (res.data.status !== 200) {
+            if (res.status !== 200) {
               //si la route est protégée
               if (props.auth) {
                 //on demande la redirection
@@ -65,12 +63,12 @@ const RequireAuth = (props) => {
             } else {
               //console.log("wwwwwwwwwwwwwwwwwww", res.data);
               //on récup les infos de l'utilisateur (objet) qu'on stock dans une variable user
-              let user = res.data.user[0];
+              let user = res.user[0]
               //on rajoute le token à l'objet
               user.token = token;
               //on met à jour le store pour connecter l'utilisateur
               dispatch(setUser(user));
-              //console.log("userrrrrrrr ", user);
+              //console.log("userrrrrrrr ", user)
 
 
             }
@@ -94,4 +92,3 @@ const RequireAuth = (props) => {
 
 
 export default RequireAuth;
-

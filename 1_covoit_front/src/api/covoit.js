@@ -42,10 +42,10 @@ export function getAllCovoitById(id_membre) {
 
 // tous les covoit par salon - OK
 export function CovoitById(id_salon) {
-    console.log("zzz/covoit/one/:id_salon", id_salon)
+    //console.log("zzz/covoit/one/:id_salon", id_salon)
     return axios.get(`${config.api_url}/zzz/covoit/one/${id_salon}`, id_salon)
     .then((res)=>{
-        console.log("res.data dans api/covoit.js", res.data)
+        //console.log("res.data dans api/covoit.js", res.data)
         return res.data
     })
     .catch((err)=>{

@@ -4,6 +4,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
+import Navigation from './Navigation'
 
 import './form/form.css';
 import Trajet from "./form/Trajet";
@@ -68,11 +69,12 @@ const Deposer = () => {
     />,
   ];
 
-  console.log("formData :", formData)
+  //console.log("formData :", formData)
 
   return (
     <section>
       <div className="container">
+        <Navigation />
         <div className="progress-bar">
           <div className="step">
             <p>Trajet</p>

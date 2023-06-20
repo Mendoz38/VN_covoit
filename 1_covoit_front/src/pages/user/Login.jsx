@@ -123,7 +123,7 @@ const Login = (props) => {
         </form>
 
         <div>
-          <Link to="/user/Register"><span>Pas encore de compte ?</span></Link>
+          <Link to="/Register"><span>Pas encore de compte ?</span></Link>
         </div>
       </div>
     </main>

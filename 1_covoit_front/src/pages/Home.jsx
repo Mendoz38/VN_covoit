@@ -11,6 +11,16 @@ import { faCar, faPersonWalking, faPerson, faPersonDress } from '@fortawesome/fr
 const Home = (props) => {
     const [salonCovoit, setSalonCovoit] = useState([])
 
+    // pour récupérer les paramètres de l'URL
+    const queryParams = new URLSearchParams(window.location.search)
+    const salon = queryParams.get("salon")
+    const date = queryParams.get("date")
+    const id_salon = queryParams.get("id_salon")
+    
+    // ajouter les paramètres d'URL dans le localstorage
+    window.localStorage.setItem("url_salon", salon);
+    window.localStorage.setItem("url_date", date);
+    window.localStorage.setItem("url_id_salon", id_salon);
 
   // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
   const url_salon = window.localStorage.getItem('url_salon')

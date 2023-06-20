@@ -6,6 +6,7 @@ import { faCar, faPersonWalking, faCircleInfo, faCoffee, faPhone, faVenusMars } 
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
+import Navigation from './Navigation'
 
 
 import { repCovoit } from '../api/reponse'
@@ -74,6 +75,7 @@ const Reponse_covoit = (props) => {
 
     return (
         <section>
+        <Navigation />
             {ok === true ? (
                 <div className="step-title">Votre message a été envoyé !</div>
             ) : (

@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Routes, Route } from 'react-router-dom'
 import RequireAuth from "./helpers/require-auth";
+import All from "./helpers/all";
 
 import './pages/styles.css';
 import Header from './pages/Header'
@@ -24,14 +25,14 @@ function App() {
     <div className="covoit">
       <Header />
       <Routes>
-        <Route exact path="/" element={<RequireAuth child={Home} auth={true} />} />
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/Deposer" element={<RequireAuth child={Deposer} auth={true} />} />
         <Route exact path="/Reponse_covoit/:type/:id/:salon/:id_salon/:contrepartie" element={<RequireAuth child={Reponse_covoit} auth={true} />} />
         <Route exact path="/Liste_reponses" element={<RequireAuth child={Liste_reponses} auth={true} />} />
-        <Route exact path="/user/Logout" element={<RequireAuth child={Logout} auth={true} />} />
+        <Route exact path="/Logout" element={<RequireAuth child={Logout} auth={true} />} />
         <Route exact path="/Login" element={<Login />} />
-        <Route exact path="/user/Register" element={<Register />} />
-        <Route exact path="/user/Profil" element={<RequireAuth child={Profil} auth={true} />} />
+        <Route exact path="/Register" element={<Register />} />
+        <Route exact path="/Profil" element={<RequireAuth child={Profil} auth={true} />} />
         <Route exact path="/Edit_covoit/:id" element={<RequireAuth child={Edit_covoit} auth={true} />} />
         <Route exact path="/Detail" element={<RequireAuth child={Detail} auth={true} />} />
 

@@ -10,8 +10,8 @@ export const saveUser = (data) => {
 };
 
 export const updateProfil = (data) => {
-  console.log("data", data)
-  console.log("token", token)
+  //console.log("data", data)
+  //console.log("token", token)
   // passer le {headers: {"x-access-token": token}} en plus car route protégée
   return axios.put(`${config.api_url}/api/v1/user/update`, data, {headers: {"x-access-token": token}})
   .then((res)=>{
@@ -30,10 +30,10 @@ export const loginUser = (data) => {
 };
 
 export function checkToken(){
-  console.log("checkToken : ", token)    
+  //console.log("checkToken : ", token)    
   return axios.get(`${config.api_url}/api/v1/checkToken`, {headers: {"x-access-token": token}})
-      .then((response)=>{
-          return response.data
+      .then((res)=>{
+          return res.data
       })
       .catch((err)=>{
           return err
