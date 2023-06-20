@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
-import Profil from "./user/Profil"
 import { Link } from "react-router-dom";
 
 const Home = () => {

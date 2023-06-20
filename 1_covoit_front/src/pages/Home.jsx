@@ -3,25 +3,40 @@ import moment from 'moment'
 import { Link } from "react-router-dom";
 import { CovoitById } from '../api/covoit'
 import Liste_reponses from './Liste_reponses'
+import {useSelector, useDispatch} from 'react-redux' 
+import { selectUser } from "../slices/userSlice";
+import { loadSalon } from '../slices/salonSlice'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCar, faPersonWalking, faPerson, faPersonDress } from '@fortawesome/free-solid-svg-icons'
 
 
 const Home = (props) => {
-    const [salonCovoit, setSalonCovoit] = useState([])
-
-    // pour récupérer les paramètres de l'URL
-    const queryParams = new URLSearchParams(window.location.search)
-    const salon = queryParams.get("salon")
-    const date = queryParams.get("date")
-    const id_salon = queryParams.get("id_salon")
+    const dispatch = useDispatch()
     
-    // ajouter les paramètres d'URL dans le localstorage
-    window.localStorage.setItem("url_salon", salon);
-    window.localStorage.setItem("url_date", date);
-    window.localStorage.setItem("url_id_salon", id_salon);
+    const user = useSelector(selectUser);
+    const salon = useSelector(loadSalon);
 
+     
+    useEffect(() => {
+        // pour récupérer les paramètres de l'URL
+        const queryParams = new URLSearchParams(window.location.search)
+
+        const localStorage = {
+            salon: queryParams.get("salon"),
+            date: queryParams.get("date"),
+            id_salon: queryParams.get("id_salon")
+        }
+        dispatch(loadSalon(localStorage))
+   console.log("user", user)
+    console.log("localStorage", salon)
+
+    }, [props])
+
+
+
+
+    const [salonCovoit, setSalonCovoit] = useState([])
   // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
   const url_salon = window.localStorage.getItem('url_salon')
 

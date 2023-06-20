@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import logo from './img/covoit.png'
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,7 +6,8 @@ import { faUserSlash, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
-const Home = () => {
+
+const Header = (props) => {
 
     const user = useSelector(selectUser);
 
@@ -26,4 +27,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Header

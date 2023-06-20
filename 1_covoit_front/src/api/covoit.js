@@ -55,7 +55,7 @@ export function CovoitById(id_salon) {
 
 // 1 covoit détail
 export function CovoitDetail(id) {
-    console.log("zzz/covoit/detail/:id", id)
+    //console.log("zzz/covoit/detail/:id", id)
     return axios.get(`${config.api_url}/zzz/covoit/detail/${id}`, id)
     .then((res)=>{
         console.log("res.data dans api/covoit.js", res.data.covoitDetail[0])

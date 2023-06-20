@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Routes, Route } from 'react-router-dom'
 import RequireAuth from "./helpers/require-auth";
-import All from "./helpers/all";
 
 import './pages/styles.css';
 import Header from './pages/Header'
@@ -25,7 +24,7 @@ function App() {
     <div className="covoit">
       <Header />
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<RequireAuth child={Home} auth={false} />} />
         <Route exact path="/Deposer" element={<RequireAuth child={Deposer} auth={true} />} />
         <Route exact path="/Reponse_covoit/:type/:id/:salon/:id_salon/:contrepartie" element={<RequireAuth child={Reponse_covoit} auth={true} />} />
         <Route exact path="/Liste_reponses" element={<RequireAuth child={Liste_reponses} auth={true} />} />

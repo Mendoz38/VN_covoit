@@ -19,7 +19,8 @@ const Edit_covoit = (props) => {
 
     const [error, setError] = useState(null);
     const [validate, setValidate] = useState(false);
-    //const [depart, setDepart] = useState(salonCovoit.depart);
+    const [redirect, setRedirect] = useState(false)
+    
     const id = useRef();
     const id_salon = useRef();
     const choix = useRef();
@@ -34,18 +35,18 @@ const Edit_covoit = (props) => {
     const contrepartie = useRef();
     const message = useRef();
 
-
     useEffect(() => {
         console.log("CovoitDetail", params.id)
         CovoitDetail(params.id)
             .then((result) => {
                 //setDepart(result.depart)
                 //setArrivee(result.arrivee)
-                //console.log("CovoitDetail", result.choix)
-                //console.log("arrivee", result.arrivee)
+                console.log("CovoitDetail", result.choix)
+                console.log("arrivee", result.arrivee)
 
                 setSalonCovoit(result)
-                console.log("salonCovoit", salonCovoit)
+                console.log("salonCovoit", result)
+                console.log("salonCovoit 2", salonCovoit.message)
 
             })
             .catch(err => console.log(err))
@@ -97,16 +98,21 @@ const Edit_covoit = (props) => {
         editCovoit(newData)
             .then((response) => {
                 if (response.status !== 200) {
-                    setError(response.msg);
+                    setError(response.msg)
                 } else {
-                    setValidate(true);
+                    setValidate(true)
+                    //on demande une redirection
+                    setRedirect(true)
                 }
             })
             .catch((error) => {
-                setError(error);
+                setError(error)
             });
 
 
+    }
+    if(redirect){
+        return <Navigate to="/Profil"/>
     }
 
     return (
@@ -147,12 +153,12 @@ const Edit_covoit = (props) => {
                                 id="choix"
                                 name="choix"
                                 className="cust-form-control"
-                                value={salonCovoit.choix}
+                                defaultValue={salonCovoit.choix}
                                 ref={choix}
                             >
-                                <option value="">Recherche / Propose</option>
-                                <option value="Recherche">Recherche</option>
-                                <option value="Propose">Propose</option>
+                                <option defaultValue="">Recherche / Propose</option>
+                                <option defaultValue="Recherche" selected={salonCovoit.choix === "Recherche"}>Recherche</option>
+                                <option defaultValue="Propose" selected={salonCovoit.choix === "Propose"}>Propose</option>
                             </select>
                         </div>
 
@@ -164,18 +170,19 @@ const Edit_covoit = (props) => {
                                 id="places"
                                 name="places"
                                 className="cust-form-control"
-                                value={salonCovoit.places}
+                                defaultValue={salonCovoit.places}
+                                
                                 ref={places}
                             >
-                                <option value="">Nombre de places</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
+                                <option defaultValue="">Nombre de places</option>
+                                <option defaultValue="1" selected={salonCovoit.places === 1}>1</option>
+                                <option defaultValue="2" selected={salonCovoit.places === 2}>2</option>
+                                <option defaultValue="3" selected={salonCovoit.places === 3}>3</option>
+                                <option defaultValue="4" selected={salonCovoit.places === 4}>4</option>
+                                <option defaultValue="5" selected={salonCovoit.places === 5}>5</option>
+                                <option defaultValue="6" selected={salonCovoit.places === 6}>6</option>
+                                <option defaultValue="7" selected={salonCovoit.places === 7}>7</option>
+                                <option defaultValue="8" selected={salonCovoit.places === 8}>8</option>
                             </select>
                         </div>
                     </div>
@@ -295,7 +302,7 @@ const Edit_covoit = (props) => {
                             aria-describedby="email"
                             name="email"
                             placeholder="vous@e-mail.com"
-                            defaultValue={salonCovoit.mail}
+                            defaultValue={user.infos.mail}
                         />
                     </div>
 
@@ -311,10 +318,10 @@ const Edit_covoit = (props) => {
                                 defaultValue={salonCovoit.genre}
                                 ref={genre}
                             >
-                                <option value="na">---</option>
-                                <option value="masc">Homme</option>
-                                <option value="fem">Femme</option>
-                                <option value="other">Autre</option>
+                                <option defaultValue="na"  selected={salonCovoit.genre === "na"} >---</option>
+                                <option defaultValue="masc" selected={salonCovoit.genre === "masc"} >Homme</option>
+                                <option defaultValue="fem" selected={salonCovoit.genre === "fem"} >Femme</option>
+                                <option defaultValue="other" selected={salonCovoit.genre === "other"} >Autre</option>
                             </select>
                         </div>
 
@@ -329,13 +336,13 @@ const Edit_covoit = (props) => {
                                 defaultValue={salonCovoit.age}
                                 ref={age}
                             >
-                                <option value="">---</option>
-                                <option value="-20">- de 20 ans</option>
-                                <option value="20-30">20-30 ans</option>
-                                <option value="30-40">30-40 ans</option>
-                                <option value="40-50">40-50 ans</option>
-                                <option value="50-60">50-60 ans</option>
-                                <option value="+60">60 ans et +</option>
+                                <option defaultValue="">---</option>
+                                <option defaultValue="-20" selected={salonCovoit.age === "-20"} >- de 20 ans</option>
+                                <option defaultValue="20-30" selected={salonCovoit.age === "20-30"} >20-30 ans</option>
+                                <option defaultValue="30-40" selected={salonCovoit.age === "30-40"} >30-40 ans</option>
+                                <option defaultValue="40-50" selected={salonCovoit.age === "40-50"} >40-50 ans</option>
+                                <option defaultValue="50-60" selected={salonCovoit.age === "50-60"} >50-60 ans</option>
+                                <option defaultValue="+60" selected={salonCovoit.age === "+60"} >60 ans et +</option>
                             </select>
                         </div>
                     </div>
@@ -354,10 +361,10 @@ const Edit_covoit = (props) => {
                             defaultValue={salonCovoit.contrepartie}
                             ref={contrepartie}
                         >
-                            <option value="Rien ! Ca me fait plaisir !">Rien ! Ca me fait plaisir !</option>
-                            <option value="Prix libre">Prix libre</option>
-                            <option value="Partage des frais">Partage des frais</option>
-                            <option value="Autre">Autre</option>
+                            <option defaultValue="Rien ! Ca me fait plaisir !" selected={salonCovoit.contrepartie === "Rien ! Ca me fait plaisir !"} >Rien ! Ca me fait plaisir !</option>
+                            <option defaultValue="Prix libre" selected={salonCovoit.contrepartie === "Prix libre"} >Prix libre</option>
+                            <option defaultValue="Partage des frais" selected={salonCovoit.contrepartie === "Partage des frais"} >Partage des frais</option>
+                            <option defaultValue="Autre" selected={salonCovoit.contrepartie === "Autre"} >Autre</option>
                         </select>
                     </div>
 

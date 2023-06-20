@@ -1,22 +1,41 @@
-import { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import moment from 'moment'
+import { useSelector } from "react-redux";
+import { selectSalon } from '../../slices/salonSlice'
 
 const Trajet = ({ page, setPage, formData, setFormData }) => {
 
-//  const [message, setMessage] = useState("")
-  
-  // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
-  const url_salon = window.localStorage.getItem('url_salon')
-  const url_date = window.localStorage.getItem('url_date')
+  //  const [message, setMessage] = useState("")
+  const [url_salon, setUrl_salon] = useState("")
+  const [url_date, setUrl_date] = useState("")
+
+  // récupère les paramétres de l'url dans le store (ajouté dans Home)
+  const salon = useSelector(selectSalon);
+
+  useEffect(() => {
+    // vérifie que le salon soit toujours dans le store (problème si l'user refresh le navigateur)
+    if (salon.infos.salon !== undefined) {
+      //console.log("Toujours dans le store !!", salon.infos.salon)
+      setUrl_salon(salon.infos.url_salon)
+      setUrl_date(salon.infos.url_date)
+
+    } // sinon on va le chercher dans le local
+    else {
+      //console.log("Plus dans le store, on le récupère dans le localstorage", window.localStorage.getItem('url_salon'))
+      setUrl_salon(window.localStorage.getItem('url_salon'))
+      setUrl_date(window.localStorage.getItem('url_date'))
+    }
+
+  }, [])
 
   // on enlève 1 jour à la date du salon pour ne proposer que cette date dans le datepicker
   const date_deb = moment(url_date).subtract(1, "days").format('yyyy-MM-DD');
   const date_fin = moment(url_date).add(2, "days").format('yyyy-MM-DD');
-  
-  const [active, setActive] = useState("") 
 
-  useEffect(()=>{
-    
+  const [active, setActive] = useState("")
+
+  useEffect(() => {
+
     //vérifie que tous les champs obligatoire soient remplis
     /*--------------------A FAIRE -------------------------------
     if (!choix || !places || !depart || !date_aller || !heure) { 
@@ -29,8 +48,8 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
     }
     --------------------A FAIRE -------------------------------
     */
-  
-},[formData])
+
+  }, [formData])
 
 
   return (
@@ -160,7 +179,7 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
 
 
 
-      <button 
+      <button
         disabled={active}
         onClick={() => {
           setPage(page + 1);

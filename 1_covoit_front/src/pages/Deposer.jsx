@@ -4,6 +4,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
+import { selectSalon } from '../slices/salonSlice'
 import Navigation from './Navigation'
 
 import './form/form.css';
@@ -13,23 +14,23 @@ import Infos from "./form/Infos";
 import Envoyer from "./form/Envoyer";
 
 
-const Deposer = () => {
+const Deposer = (props) => {
 
+  // récupère les paramétres de l'user dans le store (ajouté require-auth)
   const user = useSelector(selectUser);
+  // récupère les paramétres de l'url dans le store (ajouté dans Home)
+  const salon = useSelector(selectSalon);
 
-  // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
-  // necessaire pour initialiser les items statiques du formData
-  const url_id_salon = window.localStorage.getItem('url_id_salon')
-  const url_salon = window.localStorage.getItem('url_salon')
+
 
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     id_membre: user.infos.id,
-    id_salon: url_id_salon,
+    id_salon: salon.infos.id_salon,
     choix: "",
     places: "",
     depart: "",
-    arrivee: url_salon,
+    arrivee: salon.infos.salon,
     date_aller: "",
     heure: "",
     nom:user.infos.nom,

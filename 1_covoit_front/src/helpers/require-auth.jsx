@@ -6,7 +6,6 @@ import { checkToken } from '../api/user'
 
 //HOC de controle des data et de la sécurité
 const RequireAuth = (props) => {
-  console.log("auth", props.auth)
   const dispatch = useDispatch();
   const Child = props.child;
 
@@ -20,17 +19,6 @@ const RequireAuth = (props) => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-
-    // pour récupérer les paramètres de l'URL
-    const queryParams = new URLSearchParams(window.location.search)
-    const salon = queryParams.get("salon")
-    const date = queryParams.get("date")
-    const id_salon = queryParams.get("id_salon")
-    
-    // ajouter les paramètres d'URL dans le localstorage
-    window.localStorage.setItem("url_salon", salon);
-    window.localStorage.setItem("url_date", date);
-    window.localStorage.setItem("url_id_salon", id_salon);
 
     //récupération du token dans le localStorage
     const token = window.localStorage.getItem("VN_token");
@@ -79,7 +67,7 @@ const RequireAuth = (props) => {
 
       }
     }
-  }, [])
+  }, [Child])
 
 
   if (redirect) {

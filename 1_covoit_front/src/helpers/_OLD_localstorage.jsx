@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { config } from "../config";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setUser } from "../slices/userSlice";
+import {selectSalon, loadSalon} from '../slices/salonSlice'
 import { checkToken } from '../api/user'
 
-
-
 //HOC de controle des data et de la sécurité
-const All = (props) => {
+const RequireAuth = (props) => {
+  console.log("auth", props.auth)
   const dispatch = useDispatch();
   const Child = props.child;
 
-  //on prépare la fonctionnalité pour dispatcher notre action dans le store
-  const user = useSelector(selectUser);
+  
   //je récup le params de la route demandée
   const params = useParams();
 
@@ -29,22 +25,35 @@ const All = (props) => {
     const salon = queryParams.get("salon")
     const date = queryParams.get("date")
     const id_salon = queryParams.get("id_salon")
-    console.log("id_salon",id_salon)
-    
     // ajouter les paramètres d'URL dans le localstorage
     window.localStorage.setItem("url_salon", salon);
     window.localStorage.setItem("url_date", date);
     window.localStorage.setItem("url_id_salon", id_salon);
 
+    const localStorage = {
+      salon : queryParams.get("salon"),
+      date : date,
+      id_salon : id_salon
+    }
+    console.log("localStorage", localStorage)
+
+
     //récupération du token dans le localStorage
     const token = window.localStorage.getItem("VN_token");
-    //console.log("VN_token ?", token);
+    console.log("VN_token ?", token);
+    console.log("props.auth", props.auth)
 
+    
   }, [])
 
+
+  if (redirect) {
+    return <Navigate to="/login" />;
+  }
+  //{...props} = transmet au composant enfant les props du parent (comme un relais)
+  //params = j'ai crée une une props qui envoi le params de l'url (récupéré en haut par useParams) vers le composant enfant
   return <Child {...props} params={params} />;
 }
 
 
-export default All;
-
+export default RequireAuth;
