@@ -92,7 +92,8 @@ module.exports = (app, db)=>{
 
 
 	// Supprimer 1 covoit  A FAIRE
-    app.delete('/zzz/covoit/delete/:id', withAuth, async (req,  res, next)=>{
+    app.delete('/xzzz/covoit/delete/:id', withAuth, async (req,  res, next)=>{
+		console.log("delete", req.params.id)
 
     	let id = req.params.id;
     	let result = await CovoitModel.deleteOneCovoit(id);

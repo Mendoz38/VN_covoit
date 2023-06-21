@@ -105,7 +105,7 @@ const Home = (props) => {
                             <div className="repondre " >
                                 <Link className="bouton" to={`/reponse_covoit/${liste.choix}/${liste.id}/${liste.arrivee}/${liste.id_salon}/${liste.contrepartie}`}> Prendre contact </Link>
                                 <p>Publié le : <b><DateCrea liste={liste} /></b></p>
-                                <i><Liste_reponses  liste={liste}  /> intrractions</i>
+                                <i><Liste_reponses  liste={liste}  /> interaction(s)</i>
                             </div>
                         </div>
                     )

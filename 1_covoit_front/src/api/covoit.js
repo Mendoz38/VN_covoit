@@ -78,6 +78,24 @@ export function editCovoit(newData) {
     })
 }
 
+// effacer un covoiturage
+export function DeleteOneCovoit(id) {
+    console.log("onClickDelete dans covoit.js", id)
+    console.log("token dans covoit.js", token)
+    return axios.delete(`${config.api_url}/zzz/covoit/delete/${id}`, {headers: { "x-access-token": token }})
+    .then((res)=>{
+        console.log("res.data dans api/covoit.js", res.data)
+        return res.data
+
+    })
+    .catch ((err)=>{
+        return err
+
+    })
+
+
+}
+
 // afficher les réponses à une annonce
 export function RepByCovoit(id_annonce) {
     console.log("RepByCovoit", id_annonce)
@@ -91,8 +109,6 @@ export function RepByCovoit(id_annonce) {
         return err
 
     })
-
 }
-
 
 

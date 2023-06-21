@@ -171,7 +171,6 @@ const Edit_covoit = (props) => {
                                 name="places"
                                 className="cust-form-control"
                                 defaultValue={salonCovoit.places}
-                                
                                 ref={places}
                             >
                                 <option defaultValue="">Nombre de places</option>
@@ -237,7 +236,7 @@ const Edit_covoit = (props) => {
                                 className="cust-form-control"
                                 id="heure"
                                 name="heure"
-                                value={salonCovoit.heure}
+                                defaultValue={salonCovoit.heure}
                                 ref={heure}
                             />
                         </div>
@@ -318,10 +317,10 @@ const Edit_covoit = (props) => {
                                 defaultValue={salonCovoit.genre}
                                 ref={genre}
                             >
-                                <option defaultValue="na"  selected={salonCovoit.genre === "na"} >---</option>
-                                <option defaultValue="masc" selected={salonCovoit.genre === "masc"} >Homme</option>
-                                <option defaultValue="fem" selected={salonCovoit.genre === "fem"} >Femme</option>
-                                <option defaultValue="other" selected={salonCovoit.genre === "other"} >Autre</option>
+                                <option value="na"  selected={salonCovoit.genre === "na"} >---</option>
+                                <option value="masc" selected={salonCovoit.genre === "masc"} >Homme</option>
+                                <option value="fem" selected={salonCovoit.genre === "fem"} >Femme</option>
+                                <option value="other" selected={salonCovoit.genre === "other"} >Autre</option>
                             </select>
                         </div>
 
@@ -336,13 +335,13 @@ const Edit_covoit = (props) => {
                                 defaultValue={salonCovoit.age}
                                 ref={age}
                             >
-                                <option defaultValue="">---</option>
-                                <option defaultValue="-20" selected={salonCovoit.age === "-20"} >- de 20 ans</option>
-                                <option defaultValue="20-30" selected={salonCovoit.age === "20-30"} >20-30 ans</option>
-                                <option defaultValue="30-40" selected={salonCovoit.age === "30-40"} >30-40 ans</option>
-                                <option defaultValue="40-50" selected={salonCovoit.age === "40-50"} >40-50 ans</option>
-                                <option defaultValue="50-60" selected={salonCovoit.age === "50-60"} >50-60 ans</option>
-                                <option defaultValue="+60" selected={salonCovoit.age === "+60"} >60 ans et +</option>
+                                <option value="">---</option>
+                                <option value="-20" selected={salonCovoit.age === "-20"} >- de 2000 ans</option>
+                                <option value="20-30" selected={salonCovoit.age === "20-30"} >20-30 ans</option>
+                                <option value="30-40" selected={salonCovoit.age === "30-40"} >30-40 ans</option>
+                                <option value="40-50" selected={salonCovoit.age === "40-50"} >40-50 ans</option>
+                                <option value="50-60" selected={salonCovoit.age === "50-60"} >50-60 ans</option>
+                                <option value="+60" selected={salonCovoit.age === "+60"} >60 ans et +</option>
                             </select>
                         </div>
                     </div>
