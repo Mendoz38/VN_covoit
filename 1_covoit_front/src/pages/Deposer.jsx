@@ -21,8 +21,6 @@ const Deposer = (props) => {
   // récupère les paramétres de l'url dans le store (ajouté dans Home)
   const salon = useSelector(selectSalon);
 
-
-
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     id_membre: user.infos.id,
@@ -71,7 +69,6 @@ const Deposer = (props) => {
   ];
 
   //console.log("formData :", formData)
-
   return (
     <section>
       <div className="container">

@@ -1,10 +1,8 @@
-import { useState } from "react"
 import { useSelector } from "react-redux";
 import { selectUser } from "../../slices/userSlice";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faPhone, faVenusMars } from '@fortawesome/free-solid-svg-icons'
-
 
 const Coord = ({ page, setPage, formData, setFormData }) => {
   const user = useSelector(selectUser);
@@ -43,7 +41,6 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
 
       <p><FontAwesomeIcon icon={faCircleInfo} /> Seul votre prénom apparaîtra</p>
 
-
       <div className="cust-input-group">
         <div className="cust-input-group-prepend">
           <span className="cust-input-group-text" id="telephone">&nbsp;<FontAwesomeIcon icon={faPhone} /></span>
@@ -59,7 +56,6 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
           onChange={(e) => setFormData({ ...formData, telephone: e.target.value }) }
         />
       </div>
-
 
       <div className="cust-input-group">
         <div className="cust-input-group-prepend">
@@ -77,10 +73,6 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
           onChange={(e) => setFormData({ ...formData, email: e.target.defaultValue }) }
         />
       </div>
-
-
-
-
 
       <div className="flex-50">
         <div className="cust-input-group">
@@ -122,8 +114,6 @@ const Coord = ({ page, setPage, formData, setFormData }) => {
           </select>
         </div>
       </div>
-
-
 
       <div className="navigation">
         <button

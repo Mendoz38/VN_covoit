@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Link, useParams } from "react-router-dom";
-import { loginUser } from "../../api/user";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { selectUser } from "../../slices/userSlice";
 import { getAllCovoitById } from '../../api/covoit'
 import Navigation from './../Navigation'
@@ -9,7 +8,7 @@ import Liste_reponses from './../Liste_reponses'
 import PopUp from './../includes/Popup'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {  faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const Profil = (props) => {
     const user = useSelector(selectUser)
@@ -24,7 +23,6 @@ const Profil = (props) => {
         getAllCovoitById(user.infos.id)
             .then((result) => {
                 console.log("getAllCovoitById", result.covoitsById)
-
                 setSalonCovoit(result.covoitsById)
                 //console.log("salonCovoit", salonCovoit)
 
@@ -32,8 +30,7 @@ const Profil = (props) => {
             .catch(err => console.log(err))
     }, [])
 
-
-    const onClicDelete = (id) =>{
+    const onClicDelete = (id) => {
         setIdDelete(id)
         setPopUp(true)
         console.log("idDelete", id)
@@ -44,10 +41,10 @@ const Profil = (props) => {
             <Navigation />
             <h1> {salonCovoit.length} covoiturage(s)</h1>
             {message &&
-            <div className="bouton valide">
-                <h2>{message}</h2>
+                <div className="bouton valide">
+                    <h2>{message}</h2>
                 </div>
-        }
+            }
             <PopUp
                 isPopUp={isPopUp}
                 id={idDelete}
@@ -86,7 +83,7 @@ const Profil = (props) => {
                             <div className="trash" >
                                 <button
                                     className="bouton supprimer"
-                                    onClick={(e)=>{
+                                    onClick={(e) => {
                                         e.preventDefault()
                                         onClicDelete(liste.id)
                                     }}

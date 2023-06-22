@@ -6,11 +6,11 @@ const withAuth = (req, res, next)=>{
     const token = req.headers['x-access-token'];
     
     // si pas de token, c'est mort
-		console.log("Token dans withAuth : ", token)
-		console.log("secret dans withAuth : ", secret)
+		//console.log("Token dans withAuth : ", token)
+		//console.log("secret dans withAuth : ", secret)
 
         jwt.verify(token, secret, (err, decode) => {
-            console.log("decode : ",decode);
+            //console.log("decode : ",decode);
         
             if (err) {
               console.log("Erreur !!!", err);

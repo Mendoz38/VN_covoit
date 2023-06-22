@@ -2,21 +2,23 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
   infos: {},
+  urlOk: false,
 }
 
 export const salonSlice = createSlice({
     name : "salon",
     initialState,
     reducers: {
-        loadSalon: (state, action) =>{
-            state.infos = action.payload
+        loadURL: (state, action) => {
+            state.infos = action.payload;
+            state.urlOk = true;
         }
     }
 
 })
 
-export const {loadSalon} = salonSlice.actions
+export const {loadURL} = salonSlice.actions
 
-export const selectSalon = state => state.salon
+export const selectSalon = (state) => state.salon
 
 export default salonSlice.reducer

@@ -1,4 +1,3 @@
-//slice avec deux actions setUser et setLogout
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

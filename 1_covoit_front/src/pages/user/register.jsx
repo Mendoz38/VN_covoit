@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { saveUser } from "../../api/user";
 import Navigation from './../Navigation'
 
@@ -72,7 +72,7 @@ const Register = (props) => {
 
   return (
     <div>
-    <Navigation />
+      <Navigation />
       <h1>Bienvenue sur <span className="clair">Vinsnaturels</span>.fr</h1>
 
       <div className="log-container">

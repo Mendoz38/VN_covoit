@@ -1,60 +1,49 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment'
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { loadURL, selectSalon } from '../slices/salonSlice'
 import { CovoitById } from '../api/covoit'
 import Liste_reponses from './Liste_reponses'
-import {useSelector, useDispatch} from 'react-redux' 
-import { selectUser } from "../slices/userSlice";
-import { loadSalon } from '../slices/salonSlice'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCar, faPersonWalking, faPerson, faPersonDress } from '@fortawesome/free-solid-svg-icons'
 
-
 const Home = (props) => {
     const dispatch = useDispatch()
-    
-    const user = useSelector(selectUser);
-    const salon = useSelector(loadSalon);
 
-     
+    const salon = useSelector(selectSalon);
+    const [salonCovoit, setSalonCovoit] = useState([])
+
     useEffect(() => {
         // pour récupérer les paramètres de l'URL
         const queryParams = new URLSearchParams(window.location.search)
-
+        // récupère les paramétres de l'url
         const localStorage = {
             salon: queryParams.get("salon"),
             date: queryParams.get("date"),
             id_salon: queryParams.get("id_salon")
         }
-        dispatch(loadSalon(localStorage))
-   console.log("user", user)
-    console.log("localStorage", salon)
+        // on stocke dans le store redux
+        dispatch(loadURL(localStorage))
+        //console.log("localStorage", localStorage)
 
-    }, [props])
+        // ajouter les paramètres d'URL dans le localstorage
+        // Bretelles et ceinture pour pouvoir récuperer les infos dans redux et le localStorage
+        // Ca sert dans les form de déposer si l'user rafraichit la page
+        window.localStorage.setItem("url_salon", localStorage.salon);
+        window.localStorage.setItem("url_date", localStorage.date);
+        window.localStorage.setItem("url_id_salon", localStorage.id_salon);
 
-
-
-
-    const [salonCovoit, setSalonCovoit] = useState([])
-  // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
-  const url_salon = window.localStorage.getItem('url_salon')
-
-    useEffect(() => {
-    // récupère les paramétres de l'url dans le localstorage (ajouté dans le require-auth)
-    const url_id_salon = window.localStorage.getItem('url_id_salon')
-        console.log("CovoitById", url_id_salon)
-        CovoitById(url_id_salon)
+        // on recherche tous les covoiturages pour ce salon
+        CovoitById(salon.infos.id_salon)
             .then((result) => {
-                //console.log("CovoitById", result.covoitDetail)
-
+                // on stocke les covoits dans salonCovoit
                 setSalonCovoit(result.covoitDetail)
-                //console.log("salonCovoit", salonCovoit)
-
+        console.log("Covoiturages pour ", salon.infos.salon)
             })
             .catch(err => console.log(err))
-
-    }, [])
+    }, [props])
 
     const Type = (props) => {
         if (props.liste.choix === "Recherche") { return (<FontAwesomeIcon className="icon_x4 round_icon" icon={faPersonWalking} />) }
@@ -78,10 +67,10 @@ const Home = (props) => {
 
     return (
         <div className="containeur">
-            <h1> {salonCovoit.length} covoiturage(s) pour {url_salon}</h1>
+            <h1> {salonCovoit.length} covoiturage(s) pour {salon.infos.salon}</h1>
             <div className="deposer">
-        <Link className="button-form deposer" to="/Deposer"> Déposer une annonce </Link>
-        </div>
+                <Link className="button-form deposer" to="/Deposer"> Déposer une annonce </Link>
+            </div>
 
             <section>
                 {salonCovoit.map((liste) => {
@@ -90,37 +79,27 @@ const Home = (props) => {
                             <div className="type">
                                 <Type key={liste.id} liste={liste} />
                                 <p><b>{liste.arrivee}</b></p>
-
                             </div>
 
                             <div className="detail">
                                 <h3><Genre liste={liste} /> {liste.prenom} {liste.nom} - <span className="p14">{liste.age} ans </span> </h3>
                                 <h2>{liste.choix} {liste.places} place(s) </h2>
                                 <p>De : <b>{liste.depart}</b>, départ le <b>{liste.date_aller}</b>  à  <b>{liste.heure}</b> </p>
-
                                 <p>Contrepartie : <b>{liste.contrepartie}</b></p>
                                 <Message liste={liste} />
-
                             </div>
+
                             <div className="repondre " >
                                 <Link className="bouton" to={`/reponse_covoit/${liste.choix}/${liste.id}/${liste.arrivee}/${liste.id_salon}/${liste.contrepartie}`}> Prendre contact </Link>
                                 <p>Publié le : <b><DateCrea liste={liste} /></b></p>
-                                <i><Liste_reponses  liste={liste}  /> interaction(s)</i>
+                                <i><Liste_reponses liste={liste} /> interaction(s)</i>
                             </div>
                         </div>
                     )
-
                 })}
-            </section> 
+            </section>
         </div>
-
     )
-
 }
 
 export default Home
-
-/*
- 
-
-*/

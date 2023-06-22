@@ -20,6 +20,9 @@ section {
     width: 100%;
     justify-content: space-around;
 }
+.column {
+    flex-direction: column;
+}
 
 .header {
     display: flex;
@@ -73,8 +76,12 @@ section {
 }
 .valide {
     background-color: green;
-    
+
 }
+.echec {
+    background-color: #c52a2a;
+}
+
 .deposer {
     width: 100%;
     text-decoration: none;

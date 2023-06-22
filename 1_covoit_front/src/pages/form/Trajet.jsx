@@ -5,7 +5,6 @@ import { selectSalon } from '../../slices/salonSlice'
 
 const Trajet = ({ page, setPage, formData, setFormData }) => {
 
-  //  const [message, setMessage] = useState("")
   const [url_salon, setUrl_salon] = useState("")
   const [url_date, setUrl_date] = useState("")
 
@@ -15,13 +14,13 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
   useEffect(() => {
     // vérifie que le salon soit toujours dans le store (problème si l'user refresh le navigateur)
     if (salon.infos.salon !== undefined) {
-      //console.log("Toujours dans le store !!", salon.infos.salon)
-      setUrl_salon(salon.infos.url_salon)
-      setUrl_date(salon.infos.url_date)
+      console.log("Toujours dans le store !!", salon.infos.salon)
+      setUrl_salon(salon.infos.salon)
+      setUrl_date(salon.infos.date)
 
     } // sinon on va le chercher dans le local
     else {
-      //console.log("Plus dans le store, on le récupère dans le localstorage", window.localStorage.getItem('url_salon'))
+      console.log("Plus dans le store, on le récupère dans le localstorage", window.localStorage.getItem('url_salon'))
       setUrl_salon(window.localStorage.getItem('url_salon'))
       setUrl_date(window.localStorage.getItem('url_date'))
     }
@@ -29,8 +28,8 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
   }, [])
 
   // on enlève 1 jour à la date du salon pour ne proposer que cette date dans le datepicker
-  const date_deb = moment(url_date).subtract(1, "days").format('yyyy-MM-DD');
-  const date_fin = moment(url_date).add(2, "days").format('yyyy-MM-DD');
+  const date_deb = moment(salon.infos.date).subtract(1, "days").format('yyyy-MM-DD');
+  const date_fin = moment(salon.infos.date).add(2, "days").format('yyyy-MM-DD');
 
   const [active, setActive] = useState("")
 
@@ -51,11 +50,9 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
 
   }, [formData])
 
-
   return (
     <div className="card">
       <div className="step-title">Trajet  </div>
-
       <div className="flex-50">
         <div className="cust-input-group">
           <div className="cust-input-group-prepend">
@@ -99,10 +96,7 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
             <option value="7">7</option>
             <option value="8">8</option>
           </select>
-
-
         </div>
-
       </div>
 
       <div className="cust-input-group">
@@ -123,7 +117,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
         />
       </div>
 
-
       <div className="cust-input-group">
         <div className="cust-input-group-prepend">
           <span className="cust-input-group-text" id="arrivee">Arrivée à</span>
@@ -137,10 +130,8 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
           onChange={(e) => {
             setFormData({ ...formData, arrivee: e.target.defaultValue })
           }}
-
         />
       </div>
-
 
       <div className="step-text">Date et Heure</div>
 
@@ -177,8 +168,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
         </div>
       </div>
 
-
-
       <button
         disabled={active}
         onClick={() => {
@@ -186,8 +175,6 @@ const Trajet = ({ page, setPage, formData, setFormData }) => {
         }}>
         Suivant
       </button>
-
-
     </div>
   );
 };
