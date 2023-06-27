@@ -53,7 +53,10 @@ section {
     color: #fff;
     text-decoration: none;
 }
-
+a {
+    color: #000;
+    text-decoration: none;
+}
 .errorMsg {
     color: red;
 }
